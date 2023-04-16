@@ -3,7 +3,7 @@ Yet another URL shortener
 
 ## Requirements
 
-- Main functionality: given a valid URL, the system should provide a shortened alias for such url. For instance, assume that https://www.wikipedia.org/ is passed as input, the system has to provide an alias such as https://short.it/abc1234, that redirect to such URL. If a user visits the alias, it will redirect to the target URL.
+- Main functionality: given a valid URL, the system should provide a shortened alias for such url. For instance, assume that https://www.wikipedia.org/ is passed as input, the system has to provide an alias such as https://short.it/abc1234, that redirect to such URL. If a user visits the alias, it will redirect to the target URL (https://www.wikipedia.org/).
 - Traffic volume: Let's assume that short.it is a very popular website used worldwide and it can handle on average 100 million URLs generations every day
 - URI length: at most 32 characters
 - An action that can be done on the URL (the alias):
