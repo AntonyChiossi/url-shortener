@@ -8,6 +8,7 @@ Yet another URL shortener
 - URI length: at most 32 characters
 - An action that can be done on the URL (the alias):
   - Creation
+  - Read
   - Update (set/update expire time only)
   - Deletion **not** allowed. Soft delete will be applyed at expiration time.
 - URL visits statistics must be collected and visible only to the owner
