@@ -10,6 +10,8 @@ Yet another URL shortener
   - Creation
   - Update (set/update expire time only)
   - Deletion **not** allowed
+- URL visits statistics must be collected and visible only to the owner
+- When a URL has an expiration date, it should stop redirecting to the target URL at the time of expiration. The owner of the URL should also be notified of the expiration and receive statistics about the URL's traffic.
 - High availability
 - Scalability
 - Good Fault tolerance
