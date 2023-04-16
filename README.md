@@ -20,7 +20,7 @@ Yet another URL shortener
 For the purpose of this rough estimation, let's make the assumption that short.it is a highly popular website with a large global user base.
 
 - 100 millions URLs created every day
-- The URLs created per second: 100M / 24 / 3600 = 1157 = ~1200
-- Let's assume that the read/write ratio of 30:1: 1200 * 30 = ~36000
+- The URLs created per second: 100M / 24 / 3600 = 1157 = ~1200 (write/s)
+- Let's assume that the read/write ratio of 30:1: 1200 * 30 = ~36000 (read/s)
 - System retention time is 7 years, so we must hadle: 100M * 365 * 7 = ~255B URLs
 - Assume that the average length is 32 characters: 255B * 32bytes = ~8.2TB
