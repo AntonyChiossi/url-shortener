@@ -7,10 +7,10 @@ Yet another URL shortener
 - Traffic volume: Let's assume that short.it is a very popular website used worldwide and it can handle on average 10 million URLs generations every day
 - URI length: at most 32 characters
 - An action that can be done on the URL (the alias):
-  - Creation
+  - Create
   - Read
   - Update (set/update expire time only)
-  - Deletion **not** allowed. Soft delete will be applyed at expiration time.
+  - Delete **not** allowed. Soft delete will be applyed at expiration time.
 - URL visits statistics must be collected and visible only to the owner
 - When a URL has an expiration date, it should stop redirecting to the target URL at the time of expiration. The owner of the URL should also be notified of the expiration and receive statistics about the URL's traffic.
 - High availability
