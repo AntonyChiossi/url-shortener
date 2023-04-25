@@ -1,0 +1,25 @@
+<!--
+@file base.html
+@author Antony Chiossi
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    <!-- Any additional head content here -->
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <!-- Default content goes here -->
+    {% endblock %}
+    {% block scripts %}
+    <!-- Any additional scripts here -->
+    {% endblock %}
+</body>
+</html>
+
+
