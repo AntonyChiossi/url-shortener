@@ -1,0 +1,10 @@
+django
+gunicorn
+psycopg2
+celery
+pytz
+djangorestframework
+djangorestframework-simplejwt
+django-ratelimit
+redis
+hiredis

@@ -6,6 +6,48 @@
 
 import string
 
+from django.forms import ValidationError
+
+
+def is_int(value: int, min: int = None, max: int = None, default: int = None):
+    if not isinstance(value, int):
+        if default is not None:
+            return default
+        raise ValidationError(
+            ("%(value)s is not an integer"),
+            params={"value": value},
+        )
+    if min is not None and value < min:
+        raise ValidationError(
+            ("%(value)s min is %(min)d"),
+            params={"value": value, "mi": min},
+        )
+    if max is not None and value > max:
+        raise ValidationError(
+            ("%(value)s max is %(max)d"),
+            params={"value": value, "max": max},
+        )
+
+
+def is_str(value: str, minLen: int = None, maxLen: int = None, default: int = None):
+    if not isinstance(value, str) or len(value) == 0:
+        if default is not None:
+            return default
+        raise ValidationError(
+            ("%(value)s is not a string"),
+            params={"value": value},
+        )
+    if minLen is not None and len(value) < minLen:
+        raise ValidationError(
+            ("%(value)s min len is %(minLen)d"),
+            params={"value": value, "minLen": minLen},
+        )
+    if maxLen is not None and len(value) > maxLen:
+        raise ValidationError(
+            ("%(value)s min len is %(maxLen)d"),
+            params={"value": value, "maxLen": maxLen},
+        )
+
 
 def snowflake_to_base62(snowflake_id: int) -> str:
     """

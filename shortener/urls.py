@@ -15,14 +15,42 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.urls import path
-from urls.views import create_url, get_url, get_url_stats, custom_404_view
+from django.urls import path, re_path
+from django.views.generic import RedirectView
+from django.views.static import serve
+from django.conf.urls.static import static
+from django.conf import settings
+
+from urls.views import (
+    UrlView,
+    get_url,
+    get_url_stats,
+    custom_404_view,
+    register,
+    login,
+    refresh_token,
+    angular,
+)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("url", create_url),
-    path("url/<str:short_id>", get_url),
-    path("url/<str:short_id>/statistics", get_url_stats),
+    # path(
+    #     "app",
+    #     serve,
+    #     kwargs={
+    #         "path": "index.html",
+    #         "document_root": "frontend/shortener/dist/shortener/",
+    #     },
+    # ),
+    # static("", document_root="frontend/shortener/dist/shortener/"),
+    # auth
+    path("api/register", register),
+    path("api/login", login),
+    path("api/refresh", refresh_token),
+    # Urls
+    path("api/url", UrlView.as_view()),
+    re_path(r"^(?P<short_id>[a-zA-Z0-9]{12})[\/]*$", get_url),
+    re_path(r"^(?P<short_id>[a-zA-Z0-9]{12})[\/]*\+[\/]*$", get_url_stats),
+    # others
     path("404/", custom_404_view, name="custom_404"),
+    path("<path:route>", RedirectView.as_view(url="/404/")),
 ]

@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
+import os
 from pathlib import Path
+
+SILENCED_SYSTEM_CHECKS = ["django_ratelimit.E003", "django_ratelimit.W001"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,8 +26,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-(fgf=ap#8wuwc9780xqulmqsm5$@@vff2p9rsj3f)w%-9i9xed"
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8082" "http://*.127.0.0.1",
+    "https://*.127.0.0.1",
+    "http://localhost:*",
+    "http://localhost:4200",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8082",
+    "http://localhost:4200",
+]
+ALLOWED_HOSTS = (
+    [
+        "localhost",
+    ],
+)
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:8082",
+#     "http://localhost:4200",
+# ]
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -31,7 +56,13 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
         # 'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "login": "15/hour",
+    },
 }
 
 
@@ -44,6 +75,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework_simplejwt",
+    "django_ratelimit",
     "rest_framework",
     "urls",
 ]
@@ -56,6 +89,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_ratelimit.middleware.RatelimitMiddleware",
 ]
 
 ROOT_URLCONF = "shortener.urls"
@@ -80,9 +114,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "shortener.wsgi.application"
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://{}:6379".format(
+            os.environ.get("CACHE_HOST") or "127.0.0.1",
+        ),
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 
 DATABASES = {
     "default": {
@@ -90,7 +133,7 @@ DATABASES = {
         "NAME": "urlshortener",
         "USER": "webapp",
         "PASSWORD": "password",
-        "HOST": "127.0.0.1",
+        "HOST": os.environ.get("DATABASE_HOST") or "127.0.0.1",
         "PORT": "5432",
     }
     # "default": {
@@ -127,6 +170,30 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# I know, tokens should be short-lived. Change the values to shorted periods!
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    # "ROTATE_REFRESH_TOKENS": True,
+    # "BLACKLIST_AFTER_ROTATION": True,
+    # "UPDATE_LAST_LOGIN": True,
+    # "ALGORITHM": "HS256",
+    # "SIGNING_KEY": SECRET_KEY,
+    # "VERIFYING_KEY": None,
+    # "AUDIENCE": None,
+    # "ISSUER": None,
+    # "AUTH_HEADER_TYPES": ("Bearer",),
+    # "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    # "USER_ID_FIELD": "id",
+    # "USER_ID_CLAIM": "user_id",
+    # "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    # "TOKEN_TYPE_CLAIM": "token_type",
+    # "JTI_CLAIM": "jti",
+    # "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+    # "SLIDING_TOKEN_LIFETIME": timedelta(hours=12),
+    # "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=3),
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -157,3 +224,16 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
+
+# if os.environ.get("CELERY_BROKER_URL"):
+#     BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+# if os.environ.get("CELERY_RESULT_BACKEND"):
+#     CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
+# if os.environ.get("CELERY_ACCEPT_CONTENT"):
+#     CELERY_ACCEPT_CONTENT = os.environ.get("CELERY_ACCEPT_CONTENT")
+# if os.environ.get("CELERY_TASK_SERIALIZER"):
+#     CELERY_TASK_SERIALIZER = os.environ.get("CELERY_TASK_SERIALIZER")
+# if os.environ.get("CELERY_RESULT_SERIALIZER"):
+#     CELERY_RESULT_SERIALIZER = os.environ.get("CELERY_RESULT_SERIALIZER")
+# if os.environ.get("CELERY_TIMEZONE"):
+#     CELERY_TIMEZONE = os.environ.get("CELERY_TIMEZONE")

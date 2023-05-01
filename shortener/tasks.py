@@ -12,10 +12,10 @@ from django.utils import timezone
 
 
 now = timezone.now()
-expired_urls = URL.objects.filter(expires_at__lte=now)
-print("now: ", now)
-print("expired_urls:")
-print(expired_urls)
+# expired_urls = URL.objects.filter(expires_at__lte=now)
+# print("now: ", now)
+# print("expired_urls:")
+# print(expired_urls)
 # click = Click(
 #     url="aaaaaa",
 #     user_agent=None,
@@ -28,7 +28,8 @@ print(expired_urls)
 
 
 @shared_task
-def track_click(url, user_agent, ip_address, referrer, date):
+def track_click(url_pk, user_agent, ip_address, referrer, date):
+    url = URL.objects.get(pk=url_pk)
     click = Click(
         url=url,
         user_agent=user_agent,
