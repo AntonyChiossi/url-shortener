@@ -1,0 +1,29 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form #loginForm="ngForm">
+            <div class="mb-3 form-group">
+                <label for="email">E-mail</label>
+                <div class="input-group">
+                    <input id="email" type="email" class="form-control" placeholder="E-mail" name="email" [(ngModel)]="email" required>
+                </div>
+            </div>
+            <div class="mb-3 form-group">
+                <label for="email">Password</label>
+                <div class="input-group">
+                    <input id="password" type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="password" 
+                        required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="login()"
+            [disabled]="!loginForm.form.valid">Login</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-outline-primary" (click)="open(content)">Login</button>

@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use 'sass:math';
+@use "sass:color";
+@use "sass:map";
+@import 'ngx-toastr/toastr';
+// @import 'ngx-toastr/toastr-bs4-alert';
+@import 'assets/styles/variables';
+@import 'assets/styles/root.scss';
+
+
+
+// Modals
+// Padding applied to the modal body
+$modal-inner-padding:                               1rem !default;
+$modal-dialog-margin:                               .5rem !default;
+$modal-dialog-margin-y-sm-up:                       1.75rem !default;
+$modal-title-color:                                 $dark !default; // Custom variable
+$modal-title-font-weight:                           500 !default; // Custom variable
+$modal-title-font-size:                             1.3rem !default; // Custom variable
+$modal-title-small-color:                           $text-muted !default; // Custom variable
+$modal-title-small-font-weight:                     400 !default; // Custom variable
+$modal-title-small-font-size:                       0.9rem !default; // Custom variable
+$modal-title-close-font-size:                       1rem !default; // Custom variable
+$modal-title-close-color:                           $text-muted !default; // Custom variable
+$modal-title-close-hover-color:                     $primary !default; // Custom variable
+
+$modal-content-color:                               null !default;
+$modal-content-bg:                                  $white !default;
+$modal-content-border-color:                        rgba($black, .2) !default;
+$modal-content-border-radius:                       $border-radius-lg !default;
+$modal-content-box-shadow-xs:                       0 .25rem .5rem rgba($black, .5) !default;
+$modal-content-box-shadow-sm-up:                    0 .5rem 1rem rgba($black, .5) !default;
+
+$modal-backdrop-bg:                                 $black !default;
+$modal-backdrop-opacity:                            .5 !default;
+$modal-header-border-color:                         $border-color !default;
+$modal-footer-border-color:                         $modal-header-border-color !default;
+
+$modal-xl:                                          1140px !default;
+$modal-lg:                                          800px !default;
+$modal-md:                                          500px !default;
+$modal-sm:                                          300px !default;
+
+
+// Text
+$text-high-emphasis: rgba(255, 255, 255, 0.87);
+$text-medium-emphasis: rgba(255, 255, 255, 0.6);
+$text-disabled-emphasis: rgba(255, 255, 255, 0.38);
+
+
+.ngb-dp-weekdays, 
+.ngb-dp-header {
+    background-color: transparent !important;
+}
+
+.form-control:focus,
+.form-control {
+    background-color: transparent !important;
+    border: 1px solid #0b2b38;
+}
+
+// Other
+.text-primary {
+    color: $text-high-emphasis !important;
+}
+
+.input {
+    border-color: #2f515e !important;
+}
+
+.badge {
+    color: #1e1e1e !important;
+}
+.btn {
+    color: #1e1e1e !important;
+
+    &.btn-outline-primary {
+        color: $primary !important;
+        background-color: transparent;
+        border-color: #333;
+    }
+}
+
+.navbar {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+
+#shorten-url {
+    border-radius: 0 !important;
+}
+
+.big-text {
+    font-size: 1.5rem !important;
+}
+
+.modal {
+    // Header
+    .modal-header {
+        align-items: center;
+
+        .modal-title {
+            font-weight: $modal-title-font-weight;
+            font-size: $modal-title-font-size;
+            color: $modal-title-color;
+
+            small {
+                font-weight: $modal-title-small-font-weight;
+                font-size: $modal-title-small-font-size;
+                color: $modal-title-small-color;
+            }
+        }
+
+        .close {
+            outline:none !important;
+            color: $modal-title-close-color;
+            padding: 0;
+            margin: 0;
+            line-height: 0;
+
+        
+            span {
+                display: none;
+            }
+        }
+    }
+
+    .modal-content {
+        border-radius: 8px !important;
+    }
+
+    .modal-body {
+        padding: 1.5rem 2rem;
+    }
+
+}
+
+// Open state
+.modal-open {
+    overflow: auto !important;
+    padding: 0 !important;
+}

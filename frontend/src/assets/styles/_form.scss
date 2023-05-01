@@ -1,0 +1,68 @@
+/* form */
+
+label.required:after {
+  content: "  *";
+  color: red;
+}
+
+.input-dark {
+  background-color: $darker !important;
+  border-color: $dark !important;
+  .custom-file-label {
+    background-color: $darker;
+    border-color: $dark;
+  }
+}
+
+textarea {
+  display: block;
+  background-color: $pre-bg;
+  color: $pre-color;
+  border: 2px solid $tertiary;
+  min-height: 100px;
+}
+
+.form-control-xs {
+  width: 75px;
+  height: 33px;
+}
+
+/* Weight range slider */
+
+input[type="range"] {
+  // Chrome
+  &::-webkit-slider-runnable-track {
+    overflow: hidden;
+    height: 5px;
+    background-color: $light;
+  }
+  &::-webkit-slider-thumb {
+    cursor: ew-resize;
+    height: 12px;
+    width: 12px;
+    border-radius: 0;
+    background-color: shade-color($info, 30%);
+    box-shadow: -80px 0 0 80px $sev-medium;
+  }
+
+  // Firefox
+  &::-moz-range-progress {
+    background: linear-gradient(
+      to right,
+      $sev-very-low 0%,
+      $sev-medium 20%,
+      $sev-critical 90%
+    );
+  }
+  &::-moz-range-track {
+    height: 2.5px;
+    background-color: $light;
+  }
+  &::-moz-range-thumb {
+    cursor: ew-resize;
+    height: 12px;
+    width: 12px;
+    background-color: shade-color($info, 30%);
+    border-radius: 0;
+  }
+}

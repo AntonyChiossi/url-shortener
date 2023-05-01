@@ -1,0 +1,166 @@
+<div id="root">
+  <header class="fixed-top">
+    <nav class="navbar navbar-expand navbar-dark">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-end w-100">
+          <ng-container *ngIf="!authenticated">
+            <app-login class="m-2"></app-login>
+            <app-registration class="m-2"></app-registration>
+          </ng-container>
+          <button
+            *ngIf="authenticated"
+            type="button"
+            class="btn btn-primary m-2"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="px-5 mx-auto">
+    <div class="container-fluid pt-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-10">
+          <div class="pt-10">
+            <div class="content-section bg-dark bg-body">
+              <h3 class="pt-2 pb-3 border-bottom border-dark">
+                <span class="text-primary">Shorten Your Link</span>
+              </h3>
+              <div class="collapse show">
+                <div class="container pt-5 pb-5">
+                  <form #createFrom="ngForm">
+                    <div class="input-group">
+                      <input
+                        type="url"
+                        class="form-control big-text"
+                        placeholder="Enter URL to shorten"
+                        [(ngModel)]="longUrl"
+                        name="longUrl"
+                        required
+                      />
+                      <span class="input-group-btn">
+                        <button
+                          id="shorten-url"
+                          class="btn btn-primary big-text"
+                          type="submit"
+                          [disabled]="!createFrom.valid"
+                          (click)="createUrl()"
+                        >
+                          Shorten
+                        </button>
+                      </span>
+                    </div>
+                    <div class="col-12 pt-3">
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          placeholder="Expire date: yyyy-mm-dd"
+                          name="dp"
+                          [(ngModel)]="expire"
+                          name="expire"
+                          ngbDatepicker
+                          #d="ngbDatepicker"
+                        />
+                        <ngb-timepicker
+                          class="ml-2"
+                          name="expireTime"
+                          [(ngModel)]="expireTime"
+                          style="margin: 0 10px"
+                        ></ngb-timepicker>
+                        <button
+                          class="btn btn-outline-primary calendar"
+                          (click)="d.toggle()"
+                          type="button"
+                        >
+                          Set
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div *ngIf="shortId" class="container">
+                  <div
+                    class="w-100 d-flex"
+                    style="justify-content: space-between; align-items: center"
+                  >
+                    <span>{{ shortId }}</span>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      [disabled]="copyDisabled"
+                      (click)="copy()"
+                    >
+                      {{ copyDisabled ? "Copied" : "Copy" }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              *ngIf="authenticated"
+              class="content-section bg-dark bg-body pt-10"
+            >
+              <h3
+                class="pt-2 pb-3 border-bottom border-dark d-flex"
+                style="justify-content: space-between"
+              >
+                <span class="text-primary">Your Links</span>
+                <button type="button" class="btn btn-info btn-sm">
+                  {{ userUrls.length }}
+                </button>
+              </h3>
+              <div class="collapse show">
+                <div class="container pt-5 pb-5">
+                  <div
+                    *ngFor="let data of userUrls"
+                    class="content-section bg-dark col-3 bg-body w-100"
+                  >
+                    <div class="d-flex" style="justify-content: space-between">
+                      <span>{{ data.short_url }}</span>
+                      <span class="truncated">{{ data.long_url }}</span>
+                    </div>
+                    <div
+                      *ngIf="data.expires_at"
+                      class="d-flex pt-3"
+                      style="justify-content: space-between"
+                    >
+                      <div>
+                        <span class="badge bg-warning"
+                          >Expires:
+                          {{
+                            data.expires_at | date : "MMM d, y, h:mm a"
+                          }}</span
+                        >
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        (click)="
+                          collapsed[data.short_id] = !collapsed[data.short_id]
+                        "
+                      >
+                        Statistic
+                      </button>
+                    </div>
+                    <app-url-stats
+                      [shortId]="data.short_id"
+                      [show]="collapsed[data.short_id]"
+                      class="pt-3"
+                    ></app-url-stats>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="d-flex flex-column"></div>
+  </footer>
+</div>

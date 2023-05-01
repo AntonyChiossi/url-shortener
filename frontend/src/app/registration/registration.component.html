@@ -1,0 +1,79 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #registrationForm="ngForm">
+      <div class="mb-3 form-group">
+        <label for="email">E-mail</label>
+        <div class="input-group">
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            placeholder="E-mail"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </div>
+      </div>
+      <div class="mb-3 form-group">
+        <label for="password2">Password</label>
+        <div class="input-group">
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            placeholder="Re-type Password"
+            name="password2"
+            [(ngModel)]="password2"
+            required
+          />
+        </div>
+      </div>
+      <div *ngIf="passwordMismatch" class="d-flex">
+        <p>Passwords do not match</p>
+      </div>
+    </form>
+  </div>
+  <div
+    class="modal-footer"
+    (mouseover)="
+      checkPasswords({ password: password, confirmPassword: password2 })
+    "
+  >
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="registrationForm.invalid || passwordMismatch"
+      (click)="register()"
+    >
+      Register
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-outline-primary" (click)="open(content)">
+  Register
+</button>

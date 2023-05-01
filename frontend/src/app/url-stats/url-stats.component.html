@@ -1,0 +1,40 @@
+<div #collapse="ngbCollapse" [(ngbCollapse)]="collapsed" class="pt-3">
+  <div class="d-flex w-100" *ngIf="loading" style="justify-content: center">
+    <div class="spinner-grow" role="status"></div>
+  </div>
+  <div class="card" *ngIf="stats && !loading">
+    <div class="card-body">
+      <div class="d-flex" style="justify-content: space-between">
+        <h3>Clicks:</h3>
+        <h3>{{ stats.totalClicks }}</h3>
+      </div>
+      <div class="d-flex" style="justify-content: space-between">
+        <h3>Unique Visitors:</h3>
+        <h3>{{ stats.uniqueVisitors }}</h3>
+      </div>
+      <div class="d-flex" *ngIf="!hasBrowsers" style="justify-content: center">
+        <h4>No Browser detected</h4>
+      </div>
+      <div id="chart" *ngIf="hasBrowsers">
+        <apx-chart
+          [series]="treeChartOptions.series"
+          [chart]="treeChartOptions.chart"
+          [dataLabels]="treeChartOptions.dataLabels"
+          [plotOptions]="treeChartOptions.plotOptions"
+          [title]="treeChartOptions.title"
+          [legend]="treeChartOptions.legend"
+        ></apx-chart>
+      </div>
+      <div id="lineChart" *ngIf="stats.clicksByDate.length > 0">
+        <apx-chart
+          [series]="lineChartOptions.series"
+          [chart]="lineChartOptions.chart"
+          [dataLabels]="lineChartOptions.dataLabels"
+          [plotOptions]="lineChartOptions.plotOptions"
+          [title]="lineChartOptions.title"
+          [legend]="lineChartOptions.legend"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>
