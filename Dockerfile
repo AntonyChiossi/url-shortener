@@ -13,4 +13,4 @@ COPY ./urls /code/
 COPY ./utils /code/
 COPY ./manage.py /code/
 COPY ./requirements.txt /code/
-COPY ./frontend/shortener/dist/shortener /code/frontend
+COPY ./frontend/dist/shortener /code/frontend

@@ -33,16 +33,6 @@ from urls.views import (
 )
 
 urlpatterns = [
-    # path(
-    #     "app",
-    #     serve,
-    #     kwargs={
-    #         "path": "index.html",
-    #         "document_root": "frontend/shortener/dist/shortener/",
-    #     },
-    # ),
-    # static("", document_root="frontend/shortener/dist/shortener/"),
-    # auth
     path("api/register", register),
     path("api/login", login),
     path("api/refresh", refresh_token),

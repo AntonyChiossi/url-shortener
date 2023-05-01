@@ -7,7 +7,7 @@ services:
       - "8082:80"
     volumes:
       - ./configs/nginx.conf:/etc/nginx/nginx.conf
-      - ./frontend/shortener/dist/shortener:/usr/share/nginx/html
+      - ./frontend/dist/shortener:/usr/share/nginx/html
     networks:
       - webnet
     depends_on:
