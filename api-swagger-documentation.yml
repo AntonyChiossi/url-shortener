@@ -1,0 +1,160 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: API DOC
+  description: API DOC
+
+paths:
+  /api/register:
+    post:
+      tags:
+        - User Management
+      summary: Register a new user
+      parameters:
+        - in: body
+          name: body
+          description: User credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Bad request
+
+  /api/login:
+    post:
+      tags:
+        - User Management
+      summary: Login to the system
+      parameters:
+        - in: body
+          name: body
+          description: User credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: User logged in successfully and JWT token returned
+        '400':
+          description: Bad request
+
+  /api/refresh:
+    post:
+      tags:
+        - User Management
+      summary: Refresh the JWT token
+      parameters:
+        - in: header
+          name: Authorization
+          description: JWT token
+          required: true
+          type: string
+      responses:
+        '200':
+          description: New JWT token returned
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+
+  /api/url:
+    post:
+      tags:
+        - URL Management
+      summary: Shorten a long URL
+      parameters:
+        - in: body
+          name: body
+          description: Long URL
+          required: true
+          schema:
+            type: object
+            properties:
+              long_url:
+                type: string
+      responses:
+        '200':
+          description: URL shortened successfully
+        '400':
+          description: Bad request
+
+    get:
+      tags:
+        - URL Management
+      summary: Retrieve all shortened URLs
+      responses:
+        '200':
+          description: List of all shortened URLs
+        '400':
+          description: Bad request
+
+  /{short_id}:
+    get:
+      tags:
+        - URL Management
+      summary: Redirect to the original long URL
+      parameters:
+        - in: path
+          name: short_id
+          description: Shortened URL ID
+          required: true
+          type: string
+      responses:
+        '302':
+          description: Redirect to the original long URL
+        '404':
+          description: Shortened URL not found
+
+    head:
+      tags:
+        - URL Management
+      summary: Get information about a shortened URL
+      parameters:
+        - in: path
+          name: short_id
+          description: Shortened URL ID
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Information about the shortened URL
+        '404':
+          description: Shortened URL not found
+
+  /{short_id}+:
+    get:
+      summary: Retrieve stats for a shortened URL
+      description: Given a valid 12-character code, return the number of times the shortened URL has been accessed.
+      parameters:
+        - name: short_id
+          in: path
+          description: The 12-character code representing the shortened URL
+          required: true
+          type: string
+          example: abc123def456
+      responses:
+        200:
+          description: The number of times the shortened URL has been accessed
+          schema:
+            type: object
+            properties:
+              clicks:
+                type: integer
+                example: 10
+        404:
+          description: The short ID does not exist
+        500:
+          description: Internal server error
