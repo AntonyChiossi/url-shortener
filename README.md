@@ -42,9 +42,15 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 
 **Warning**: Please note that the software provided is not intended for production use. The Dockerized solution is intended as a proof-of-concept only. For deployment in a real production scenario, we recommend provisioning the services on dedicated machines for optimal **performance** and **security**.
 
+Dev Dependencies:
+- Docker version 20.10.22, build 3a2c30b                                                                                          
+- docker-compose version 1.29.2, build 5becea4c
+- NVM (nvm use 14.21.2)
+
+How to install:
 - `git clone git@github.com:AntonyChiossi/url-shortener.git`
 - `cd url-shortener && mkdir -p data/{db}`
-- `cd frontend && ng build --base-href /app/ && cd ..`
+- `cd frontend && npm ci && ng build --base-href /app/ && cd ..`
 - `docker-compose -f docker-compose.yml --env-file .env.dev build`
 - `docker-compose -f docker-compose.yml --env-file .env.dev up -d` (this should start 3 instances of the api server; if you dont see all them running run `docker-compose -f docker-compose.yml down` and repeat this step )
 
