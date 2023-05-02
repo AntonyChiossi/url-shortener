@@ -28,8 +28,17 @@ For the purpose of this rough estimation, let's make the assumption that short.i
 
 ## Installation
 
+**Warning**: Please note that the software provided is not intended for production use. The Dockerized solution is intended as a proof-of-concept only. For deployment in a real production scenario, we recommend provisioning the services on dedicated machines for optimal **performance** and **security**.
+
 - `git clone git@github.com:AntonyChiossi/url-shortener.git`
 - `cd url-shortener && mkdir -p data/{db}`
 - `cd frontend && ng build --base-href /app/ && cd ..`
 - `docker-compose -f docker-compose.yml --env-file .env.dev build`
 - `docker-compose -f docker-compose.yml --env-file .env.dev up -d` (this should start 3 instances of the api server; if you dont see all them running run `docker-compose -f docker-compose.yml down` and repeat this step )
+
+## Road map
+- [x] Load balancer 
+- [x] Web server scaling (stateless)
+- [ ] Database scaling (currently there is no replication or sharding)
+- [ ] Caching (An LRU cache can be added to shrink db reads)
+- [ ] Security (the code is far from secure, there is no hardening, default passwords, 
