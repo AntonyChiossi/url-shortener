@@ -51,5 +51,5 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 - [x] Load balancer 
 - [x] Web server scaling (stateless)
 - [ ] Database scaling (currently there is no replication or sharding)
-- [ ] Caching (An LRU cache can be added to shrink db reads)
+- [ ] Caching (an LRU cache can be added to reduce db reads)
 - [ ] Security (the code is far from secure, there is no hardening, default passwords, 
