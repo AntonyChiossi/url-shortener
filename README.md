@@ -9,8 +9,8 @@ Yet another URL shortener
 - An action that can be done on the URL (the alias):
   - Create
   - Read
-  - Update (set/update expire time only)
-  - Delete **not** allowed. Soft delete will be applyed at expiration time.
+  - Update: **not** allowed
+  - Delete: **not** allowed. Soft delete will be applyed at expiration time.
 - URL visits statistics must be collected and visible only to the owner
 - When a URL has an expiration date, it should stop redirecting to the target URL at the time of expiration. The owner of the URL should also be notified of the expiration and receive statistics about the URL's traffic.
 - High availability
@@ -26,6 +26,17 @@ For the purpose of this rough estimation, let's make the assumption that short.i
 - System retention time is 10 years, so we must hadle: 10M * 365 * 10 = ~37B URLs
 - Assume that the average length is 32 characters: 37B * 32bytes = ~1.5TB
 
+## Architecture and Design
+![arch-design](https://user-images.githubusercontent.com/26548787/235768215-f4389258-355f-41d8-aa94-e1953f8b443d.png)
+
+The URL shortener service is designed to be scalable and reliable. To achieve this goal, we used a microservices architecture based on the following components:
+
+- **Load Balancer** (NGINX): A reverse proxy server that distributes incoming traffic to multiple stateless web servers. NGINX provides high availability, scalability, and security by distributing requests across multiple web servers.
+- Stateless **Web Servers** (Django): We used Django, a Python-based web framework, to build the stateless web servers. The web servers handle incoming requests, perform business logic, and return responses to the client. They don't store any state on the server side, which makes them horizontally scalable.
+- **Async Tasks** (Celery with RabbitMQ): For tasks that are slow or resource-intensive, we used Celery with RabbitMQ as the message broker. Celery allows us to perform tasks asynchronously and in the background, while RabbitMQ provides reliable messaging and ensures that tasks are executed in the correct order.
+- **Database** (PostgreSQL): We used PostgreSQL as the primary database for the project. PostgreSQL is a reliable and scalable database that supports ACID transactions and provides high data integrity and consistency.
+- **Cache** (Redis): To speed up the response time and reduce the load on the database, we used Redis as the cache layer. Redis is an in-memory data store that can be used as a cache, a message broker, or a database.
+    
 ## Installation
 
 **Warning**: Please note that the software provided is not intended for production use. The Dockerized solution is intended as a proof-of-concept only. For deployment in a real production scenario, we recommend provisioning the services on dedicated machines for optimal **performance** and **security**.
@@ -36,7 +47,7 @@ For the purpose of this rough estimation, let's make the assumption that short.i
 - `docker-compose -f docker-compose.yml --env-file .env.dev build`
 - `docker-compose -f docker-compose.yml --env-file .env.dev up -d` (this should start 3 instances of the api server; if you dont see all them running run `docker-compose -f docker-compose.yml down` and repeat this step )
 
-## Road map
+## What has been implemented
 - [x] Load balancer 
 - [x] Web server scaling (stateless)
 - [ ] Database scaling (currently there is no replication or sharding)
