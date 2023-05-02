@@ -49,15 +49,12 @@ export class UrlService {
       body.expires_at = DateTime.fromJSDate(expireDate).toUTC().toISO();
     }
 
-    console.log({ body });
-
     if (headers) {
       return this.http
         .post<CreateUrlResponse>(`${this.BASE_URL}/api/url`, body, { headers })
         .pipe(catchError(this.handleError.bind(this)))
         .pipe(
           tap((res: CreateUrlResponse) => {
-            console.log({ creation: res });
             res.short_id = this.fullUrl(res.short_id);
             this.urlCreation$.next(res);
           })
@@ -68,7 +65,6 @@ export class UrlService {
       .pipe(catchError(this.handleError.bind(this)))
       .pipe(
         tap((res: CreateUrlResponse) => {
-          console.log({ creation: res });
           res.short_id = this.fullUrl(res.short_id);
           this.urlCreation$.next(res);
         })
@@ -82,7 +78,6 @@ export class UrlService {
       .get<UserUrls>(`${this.BASE_URL}/api/url`, headers ? { headers } : {})
       .pipe(
         map((res: UserUrls) => {
-          console.log({ url: res });
           return {
             ...res,
             urls: res.urls.map((u) => ({
@@ -94,7 +89,6 @@ export class UrlService {
       )
       .pipe(
         tap((res: UserUrls) => {
-          console.log({ url: res });
           this.userUrls.next({
             ...res,
             urls: res.urls.map((u) => ({
@@ -115,7 +109,6 @@ export class UrlService {
       .get<UrlStats>(`${this.BASE_URL}/${shortId}+`, headers ? { headers } : {})
       .pipe(
         tap((res: UrlStats) => {
-          console.log({ urlStats: res });
           this.urlStats['shortId'].next(res);
         })
       );

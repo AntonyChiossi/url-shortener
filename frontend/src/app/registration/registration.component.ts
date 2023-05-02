@@ -31,10 +31,6 @@ export class RegistrationComponent implements OnInit {
     confirmPassword: string;
   }) {
     this.passwordMismatch = password !== confirmPassword;
-    console.log({
-      password,
-      confirmPassword,
-    });
     return password === confirmPassword ? null : { notSame: true };
   }
 
@@ -45,17 +41,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    // this.authService.login(this.registrationForm.value, this.password).subscribe((e) => {
-    //   console.log({ e });
-    //   this.modal.close();
-    // });
-    console.log({
-      email: this.email,
-      pass1: this.password,
-      pass2: this.password2,
-    });
     this.authService.register(this.email, this.password).subscribe((e) => {
-      console.log({ e });
       this.authService
         .login(this.email, this.password)
         .subscribe((e) => this.modal.close());

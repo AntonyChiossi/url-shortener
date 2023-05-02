@@ -53,7 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.refreshUserUrls();
         }),
       this.urlService.getUrlCreationSubject().subscribe((created) => {
-        console.log({ created });
         if (!created) {
           return;
         }

@@ -37,8 +37,6 @@ export class UrlStatsComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({ id: this.shortId });
-    console.log({ show: this.show });
     this.show = !!this.show;
     if (!this.shortId) {
       return;
@@ -53,7 +51,6 @@ export class UrlStatsComponent implements OnInit, OnChanges {
             ...this.extractClickStats(rawStats.clicks),
             totalClicks: rawStats.total_clicks,
           };
-          console.log({ stats: this.stats, rawStats });
 
           this.hasBrowsers = Object.keys(this.stats.browserCounts).length > 0;
           this.treeChartOptions = {
@@ -64,10 +61,14 @@ export class UrlStatsComponent implements OnInit, OnChanges {
                 ),
               },
             ],
-
+            theme: {
+              mode: 'dark',
+              palette: 'palette10',
+            },
             chart: {
               height: 350,
               type: 'treemap',
+              background: 'transparent',
             },
             title: {
               text: 'Browsers',
@@ -77,16 +78,21 @@ export class UrlStatsComponent implements OnInit, OnChanges {
           this.lineChartOptions = {
             series: [
               {
-                name: 'Desktops',
+                name: 'Clicks',
                 data: this.stats.clicksByDate.map((e) => e.count),
               },
             ],
+            theme: {
+              mode: 'dark',
+              palette: 'palette5',
+            },
             chart: {
               height: 350,
               type: 'line',
               zoom: {
                 enabled: false,
               },
+              background: 'transparent',
             },
             dataLabels: {
               enabled: false,
@@ -100,7 +106,7 @@ export class UrlStatsComponent implements OnInit, OnChanges {
             },
             grid: {
               row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                colors: ['transparent'], // takes an array which will be repeated on columns
                 opacity: 0.5,
               },
             },
@@ -110,7 +116,6 @@ export class UrlStatsComponent implements OnInit, OnChanges {
           };
 
           this.loading = false;
-          console.log({ chartOptions: this.treeChartOptions });
         });
     }
   }

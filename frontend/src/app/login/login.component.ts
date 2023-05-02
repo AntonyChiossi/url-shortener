@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.email, this.password).subscribe((e) => {
-      console.log({ e });
       this.modal.close();
     });
   }

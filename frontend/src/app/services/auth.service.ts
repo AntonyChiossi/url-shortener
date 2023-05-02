@@ -26,7 +26,6 @@ export class AuthService {
   private accessToken: string | null = '';
   constructor(private http: HttpClient, private toastService: ToastrService) {
     const cached = this.getAccessToken();
-    console.log({ cached });
     this.accessToken$.next(cached as string);
     this.authenticatedSubjec$.next(!!cached);
   }

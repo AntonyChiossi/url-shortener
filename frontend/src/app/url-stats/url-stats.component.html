@@ -23,16 +23,19 @@
           [plotOptions]="treeChartOptions.plotOptions"
           [title]="treeChartOptions.title"
           [legend]="treeChartOptions.legend"
+          [theme]="treeChartOptions.theme"
         ></apx-chart>
       </div>
       <div id="lineChart" *ngIf="stats.clicksByDate.length > 0">
         <apx-chart
           [series]="lineChartOptions.series"
           [chart]="lineChartOptions.chart"
+          [xaxis]="lineChartOptions.xaxis"
           [dataLabels]="lineChartOptions.dataLabels"
-          [plotOptions]="lineChartOptions.plotOptions"
+          [grid]="lineChartOptions.grid"
+          [stroke]="lineChartOptions.stroke"
           [title]="lineChartOptions.title"
-          [legend]="lineChartOptions.legend"
+          [theme]="lineChartOptions.theme"
         ></apx-chart>
       </div>
     </div>

@@ -127,23 +127,35 @@
                       class="d-flex pt-3"
                       style="justify-content: space-between"
                     >
-                      <div>
-                        <span class="badge bg-warning"
-                          >Expires:
-                          {{
-                            data.expires_at | date : "MMM d, y, h:mm a"
-                          }}</span
-                        >
-                      </div>
-                      <button
-                        type="button"
-                        class="btn btn-outline-primary"
-                        (click)="
-                          collapsed[data.short_id] = !collapsed[data.short_id]
-                        "
+                      <div
+                        *ngIf="data.expires_at"
+                        class="d-flex"
+                        style="justify-content: start"
                       >
-                        Statistic
-                      </button>
+                        <div class="d-flex" style="align-items: center">
+                          <span class="badge bg-warning"
+                            >Expires:
+                            {{
+                              data.expires_at | date : "MMM d, y, h:mm a"
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                      <div
+                        class="d-flex"
+                        [style.flex-grow]="!data.expires_at ? 1 : 0"
+                        style="justify-content: end"
+                      >
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          (click)="
+                            collapsed[data.short_id] = !collapsed[data.short_id]
+                          "
+                        >
+                          Statistics
+                        </button>
+                      </div>
                     </div>
                     <app-url-stats
                       [shortId]="data.short_id"
