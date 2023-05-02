@@ -25,3 +25,11 @@ For the purpose of this rough estimation, let's make the assumption that short.i
 - Let's assume that the read/write ratio of 30:1: 120 * 30 = ~3600 (read/s)
 - System retention time is 10 years, so we must hadle: 10M * 365 * 10 = ~37B URLs
 - Assume that the average length is 32 characters: 37B * 32bytes = ~1.5TB
+
+## Installation
+
+- `git clone git@github.com:AntonyChiossi/url-shortener.git`
+- `cd url-shortener && mkdir -p data/{db}`
+- `cd frontend && ng build --base-href /app/ && cd ..`
+- `docker-compose -f docker-compose.yml --env-file .env.dev build`
+- `docker-compose -f docker-compose.yml --env-file .env.dev up -d` (this should start 3 instances of the api server; if you dont see all them running run `docker-compose -f docker-compose.yml down` and repeat this step )
