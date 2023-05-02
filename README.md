@@ -50,6 +50,7 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 ## What has been implemented
 - [x] Load balancer 
 - [x] Web server scaling (stateless)
+- [ ] Snowflacke instance initialize with proper config (currently they all have the same config)
 - [ ] Database scaling (currently there is no replication or sharding)
 - [ ] Caching (an LRU cache can be added to reduce db reads)
 - [ ] Security (the code is far from secure, there is no hardening, default passwords, 
