@@ -159,9 +159,11 @@ export class UrlStatsComponent implements OnInit, OnChanges {
   }
 
   private extractBrowser(userAgent: string): string | undefined {
-    const match = userAgent.match(/(chrome|firefox|safari|opera|edge)/i);
-    if (match) {
-      return match[1].toLowerCase();
+    if (userAgent) {
+      const match = userAgent.match(/(chrome|firefox|safari|opera|edge)/i);
+      if (match) {
+        return match[1].toLowerCase();
+      }
     }
     return 'unknown';
   }
