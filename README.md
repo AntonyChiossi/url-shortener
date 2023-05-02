@@ -32,7 +32,7 @@ For the purpose of this rough estimation, let's make the assumption that short.i
 The URL shortener service is designed to be scalable and reliable. To achieve this goal, we used a microservices architecture based on the following components:
 
 - **Load Balancer** (NGINX): A reverse proxy server that distributes incoming traffic to multiple stateless web servers. NGINX provides high availability, scalability, and security by distributing requests across multiple web servers.
-- Stateless **Web Servers** (Django): We used Django, a Python-based web framework, to build the stateless web servers. The web servers handle incoming requests, perform business logic, and return responses to the client. They don't store any state on the server side, which makes them horizontally scalable.
+- Stateless **Web Servers** (Django): We used Django, a Python-based web framework, to build the stateless web servers. The web servers handle incoming requests, perform business logic, and return responses to the client. They don't store any state on the server side, which makes them horizontally scalable. UID generetion is preformed here with snowflake approach.
 - **Async Tasks** (Celery with RabbitMQ): For tasks that are slow or resource-intensive, we used Celery with RabbitMQ as the message broker. Celery allows us to perform tasks asynchronously and in the background leveraging RabbitMQ.
 - **Database** (PostgreSQL): We used PostgreSQL as the primary database for the project. PostgreSQL is a reliable and scalable database that supports ACID transactions and provides high data integrity and consistency.
 - **Cache** (Redis): To speed up the response time and reduce the load on the database, we used Redis as the cache layer.
