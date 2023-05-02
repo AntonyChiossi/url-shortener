@@ -6,6 +6,7 @@ Yet another URL shortener
 - Main functionality: given a valid URL, the system should provide a shortened alias for such url. For instance, assume that https://www.wikipedia.org/ is passed as input, the system has to provide an alias such as https://short.it/abc1234, that redirect to such URL. If a user visits the alias, it will redirect to the target URL (https://www.wikipedia.org/).
 - Traffic volume: Let's assume that short.it is a very popular website used worldwide and it can handle on average 10 million URLs generations every day
 - URI length: at most 32 characters
+- Both authenticated an unauthenticated users are supported
 - An action that can be done on the URL (the alias):
   - Create
   - Read
@@ -47,6 +48,8 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 - `docker-compose -f docker-compose.yml --env-file .env.dev build`
 - `docker-compose -f docker-compose.yml --env-file .env.dev up -d` (this should start 3 instances of the api server; if you dont see all them running run `docker-compose -f docker-compose.yml down` and repeat this step )
 
+A live version is available here http://45-147-250-42.cloud-xip.com/app/ (credentials `antony.chiossi@test.com:123456:AAAaaa`)
+
 ## What has been implemented
 - [x] Load balancer 
 - [x] Web server scaling (stateless)
@@ -54,3 +57,12 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 - [ ] Database scaling (currently there is no replication or sharding)
 - [ ] Caching (an LRU cache can be added to reduce db reads)
 - [ ] Security (the code is far from secure, there is no hardening, default passwords, 
+
+## Frontend
+
+The frontend has been implemented with Angular.
+
+### Screenshots
+![Screenshot from 2023-05-02 22-13-26](https://user-images.githubusercontent.com/26548787/235775614-9b458f44-0449-4565-9840-4355ef6557e6.png)
+![Screenshot from 2023-05-02 22-12-56](https://user-images.githubusercontent.com/26548787/235775663-6cd787ba-cf39-4db2-9629-8153438bd916.png)
+![Screenshot from 2023-05-02 22-11-41](https://user-images.githubusercontent.com/26548787/235775684-1ab35139-753c-4aa0-b4f1-3404926c4e5b.png)
