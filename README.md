@@ -16,7 +16,7 @@ Yet another URL shortener
   - Read
   - Update: **not** allowed
   - Delete: **not** allowed. Soft delete will be applyed at expiration time.
-- URL visits statistics must be collected and visible only to the owner
+- URL visits statistics must be collected and visible to the users.
 - When a URL has an expiration date, it should stop redirecting to the target URL at the time of expiration. The owner of the URL should also be notified of the expiration and receive statistics about the URL's traffic.
 - High availability
 - Scalability
