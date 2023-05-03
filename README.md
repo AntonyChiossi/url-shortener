@@ -42,6 +42,14 @@ The URL shortener service is designed to be scalable and reliable. To achieve th
 - **Database** (PostgreSQL): We used PostgreSQL as the primary database for the project. PostgreSQL is a reliable and scalable database that supports ACID transactions and provides high data integrity and consistency.
 - **Cache** (Redis): To speed up the response time and reduce the load on the database, we used Redis as the cache layer.
     
+## What has been implemented
+- [x] Load balancer 
+- [x] Web server scaling (stateless)
+- [ ] Snowflake instance initialize with proper config (currently they all have the same config)
+- [ ] Database scaling (currently there is no replication or sharding)
+- [ ] Caching (an LRU cache can be added to reduce db reads)
+- [ ] Security (the code is far from secure, there is no hardening, default passwords, csrf not setup properly, and more..)    
+ 
 ## Installation
 
 **Warning**: Please note that the software provided is not intended for production use. The Dockerized solution is intended as a proof-of-concept only. For deployment in a real production scenario, we recommend provisioning the services on dedicated machines for optimal **performance** and **security**.
@@ -60,13 +68,6 @@ How to install:
 
 A live version is available here http://45-147-250-42.cloud-xip.com/app/ (credentials `antony.chiossi@test.com:123456:AAAaaa`)
 
-## What has been implemented
-- [x] Load balancer 
-- [x] Web server scaling (stateless)
-- [ ] Snowflake instance initialize with proper config (currently they all have the same config)
-- [ ] Database scaling (currently there is no replication or sharding)
-- [ ] Caching (an LRU cache can be added to reduce db reads)
-- [ ] Security (the code is far from secure, there is no hardening, default passwords, csrf not setup properly, and more..)
 
 ## Frontend
 
