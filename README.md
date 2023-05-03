@@ -1,6 +1,10 @@
 # Short.it
 Yet another URL shortener
 
+### Live version available here 
+#### http://45-147-250-42.cloud-xip.com/app/
+#### default account with some stats: `antony.chiossi@test.com:123456:AAAaaa`
+
 ## Requirements
 
 - Main functionality: given a valid URL, the system should provide a shortened alias for such url. For instance, assume that https://www.wikipedia.org/ is passed as input, the system has to provide an alias such as https://short.it/abc1234, that redirect to such URL. If a user visits the alias, it will redirect to the target URL (https://www.wikipedia.org/).
@@ -62,7 +66,7 @@ A live version is available here http://45-147-250-42.cloud-xip.com/app/ (creden
 - [ ] Snowflake instance initialize with proper config (currently they all have the same config)
 - [ ] Database scaling (currently there is no replication or sharding)
 - [ ] Caching (an LRU cache can be added to reduce db reads)
-- [ ] Security (the code is far from secure, there is no hardening, default passwords, 
+- [ ] Security (the code is far from secure, there is no hardening, default passwords, csrf not setup properly, and more..)
 
 ## Frontend
 
