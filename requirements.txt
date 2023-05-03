@@ -8,3 +8,4 @@ djangorestframework-simplejwt
 django-ratelimit
 redis
 hiredis
+sendgrid

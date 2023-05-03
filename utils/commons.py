@@ -4,9 +4,11 @@
 """
 
 
+import os
 import string
-
 from django.forms import ValidationError
+import sendgrid
+from sendgrid.helpers.mail import Content, Email, Mail
 
 
 def is_int(value: int, min: int = None, max: int = None, default: int = None):
@@ -69,3 +71,27 @@ def snowflake_to_base62(snowflake_id: int) -> str:
         base62.append(base62_alphabet[remainder])
     print(len(base62))
     return "".join(reversed(base62))
+
+
+def deliver_email(to, stats, fake=True):
+    if fake:
+        return
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get("SENDGRID_API_KEY"))
+    from_email = Email("no-reply@shorty.com")
+    to_email = Email(to)
+    subject = "Your link has expired!"
+    human_stats = compute_stats(stats)
+    content = Content(
+        "text/plain",
+        "Hi, your link has expired. Here is the link stats: {}".format(human_stats),
+    )
+    mail = Mail(from_email, subject, to_email, content)
+    try:
+        sg.client.mail.send.post(request_body=mail.get())
+    except Exception as err:
+        pass
+        # re-enqueing logic needed
+
+
+def compute_stats(stats):
+    pass
